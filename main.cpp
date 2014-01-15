@@ -19,14 +19,12 @@ const real span  = x1-x0;
 const real g_cfl  = 0.2;
 const real g_velocity = 0.5;
 
-const real time_stop  = 0.8;
+const real time_stop  = 2.5;
 
 real f_eval_gauss(real x) {
     x = fmod(fabs(x - x0), span) + x0;
     return exp(-10*x*x);
 }
-
-// https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition
 
 int main()
 {
