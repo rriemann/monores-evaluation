@@ -19,7 +19,7 @@ const real span  = x1-x0;
 const real g_cfl  = 0.2;
 const real g_velocity = 0.5;
 
-const real time_stop  = 0.5;
+const real time_stop  = 0.8;
 
 real f_eval_gauss(real x) {
     x = fmod(fabs(x - x0), span) + x0;
@@ -30,12 +30,11 @@ real f_eval_gauss(real x) {
 
 int main()
 {
-
     std::vector<size_t> levels {6, 7, 8, 10, 12, 13, 14, 15, 16};
 
     // output file
     std::ofstream file("/tmp/output.txt");
-    file << "#level N error_1 error_2 error_3" << endl;
+    file << "#level N log(error_1) log(error_2) log(error_3)" << endl;
 
     for(const size_t &level: levels) {
         const size_t N = (1 << level) + 1;
@@ -87,7 +86,7 @@ int main()
         error_1 = error_1/N;
         error_2 = sqrt(error_2)/N;
 
-        file << (boost::format("%02d %06d %e %e %e") % level % N % error_1 % error_2 % error_3) << endl;
+        file << (boost::format("%02d %06d %e %e %e") % level % N % log(error_1) % log(error_2) % log(error_3)) << endl;
     }
     file.close();
     return 0;
